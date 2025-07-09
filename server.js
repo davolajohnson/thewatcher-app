@@ -6,6 +6,7 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const MongoStore = require('connect-mongo');
 const path = require('path');
+const expressLayouts = require('express-ejs-layouts');
 require('dotenv').config();
 
 const app = express();
@@ -19,8 +20,12 @@ mongoose.connection.on('error', (err) => {
   console.error('❌ MongoDB connection error:', err);
 });
 
-// === View Engine ===
+// === View Engine & Layouts ===
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(expressLayouts); // << Add this line to enable layouts
+app.set('layout', 'layouts/layout'); // <-- tells it to use this file
+
 
 // === Middleware ===
 app.use(express.urlencoded({ extended: true }));
@@ -39,9 +44,16 @@ app.use(
   })
 );
 
+// Make currentUser available in all views
+app.use((req, res, next) => {
+  res.locals.currentUser = req.session.userId || null;
+  next();
+});
+
+
 // === Example Route ===
 app.get('/', (req, res) => {
-  res.send('🎬 Welcome to The Watcher App!');
+  res.render('index'); // renders views/index.ejs
 });
 
 // === Start Server ===

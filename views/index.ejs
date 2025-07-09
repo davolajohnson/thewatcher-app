@@ -1,0 +1,12 @@
+<section class="hero">
+  <h2>Welcome to 🎬 The Watcher App</h2>
+  <p>Track all the movies and shows you're watching, want to watch, or have already watched.</p>
+
+  <% if (!currentUser) { %>
+    <a href="/users/signup" class="btn">Get Started</a>
+  <% } else { %>
+    <a href="/watchlist" class="btn">Go to My WatchList</a>
+  <% } %>
+</section>
+
+
