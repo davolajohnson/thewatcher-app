@@ -23,9 +23,8 @@ mongoose.connection.on('error', (err) => {
 // === View Engine & Layouts ===
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(expressLayouts); // << Add this line to enable layouts
-app.set('layout', 'layouts/layout'); // <-- tells it to use this file
-
+app.use(expressLayouts);
+app.set('layout', 'layouts/layout');
 
 // === Middleware ===
 app.use(express.urlencoded({ extended: true }));
@@ -44,16 +43,22 @@ app.use(
   })
 );
 
-// Make currentUser available in all views
+// === Make currentUser available in all views ===
 app.use((req, res, next) => {
   res.locals.currentUser = req.session.userId || null;
   next();
 });
 
+// === Routes ===
+const usersRouter = require('./routes/users');
+app.use('/users', usersRouter);
 
-// === Example Route ===
+const watchlistRoutes = require('./routes/watchlist');
+app.use('/watchlist', watchlistRoutes);
+
+// === Home Route ===
 app.get('/', (req, res) => {
-  res.render('index'); // renders views/index.ejs
+  res.render('index');
 });
 
 // === Start Server ===
@@ -61,4 +66,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
+
 

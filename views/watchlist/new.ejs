@@ -1,0 +1,24 @@
+<% layout('layouts/layout') %>
+
+<h2>Add a New Title to Your WatchList</h2>
+
+<form action="/watchlist" method="POST">
+  <label for="title">Title:</label>
+  <input type="text" name="title" required />
+
+  <label for="genre">Genre:</label>
+  <input type="text" name="genre" />
+
+  <label for="status">Status:</label>
+  <select name="status" required>
+    <option value="Want to Watch">Want to Watch</option>
+    <option value="Watching">Watching</option>
+    <option value="Watched">Watched</option>
+    <option value="Recommendations">Recommendations</option>
+  </select>
+
+  <label for="notes">Notes:</label>
+  <textarea name="notes" rows="4" placeholder="Anything you'd like to remember..."></textarea>
+
+  <button type="submit">Add to WatchList</button>
+</form>
