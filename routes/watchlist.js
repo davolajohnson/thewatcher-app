@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const watchlistCtrl = require('../controllers/watchlist');
-const requireLogin = require('../middleware/auth'); // ✅ import the middleware
+const requireLogin = require('../middleware/requireLogin'); // ✅ This should be a function
 
-// ✅ Apply middleware to all WatchList routes
+// Protect all routes
 router.use(requireLogin);
 
-// Protected routes
 router.get('/', watchlistCtrl.index);
-router.get('/new', watchlistCtrl.new);
+router.get('/new', watchlistCtrl.newItem);
 router.post('/', watchlistCtrl.create);
 router.get('/:id/edit', watchlistCtrl.edit);
 router.put('/:id', watchlistCtrl.update);

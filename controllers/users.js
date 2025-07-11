@@ -1,42 +1,68 @@
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
-// GET signup form
+// Show signup form
 function showSignup(req, res) {
-  res.render('users/signup');
+  res.render('users/signup', { error: null });
 }
 
-// POST signup form
+// Show login form
+function showLogin(req, res) {
+  res.render('users/login', { error: null });
+}
+
+// Handle signup POST
 async function signup(req, res) {
   try {
-    const { username, password } = req.body;
-    const user = await User.create({ username, password });
+    const existingUser = await User.findOne({ username: req.body.username });
+
+    if (existingUser) {
+      return res.render('users/signup', {
+        error: 'Username already exists. Please choose another.'
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    const user = new User({
+      username: req.body.username,
+      password: hashedPassword
+    });
+
+    await user.save();
+
     req.session.userId = user._id;
-    res.redirect('/watchlist');
+    res.redirect('/');
   } catch (err) {
-    console.log(err);
-    res.redirect('/users/signup');
+    console.error(err);
+    res.render('users/signup', { error: 'Signup failed. Please try again.' });
   }
 }
 
-// GET login form
-function showLogin(req, res) {
-  res.render('users/login');
-}
-
-// POST login form
+// Handle login POST
 async function login(req, res) {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  try {
+    const user = await User.findOne({ username: req.body.username });
 
-  if (!user || !(await user.isValidPassword(password))) {
-    return res.redirect('/users/login');
+    if (!user) {
+      return res.render('users/login', { error: 'Invalid username or password.' });
+    }
+
+    const match = await bcrypt.compare(req.body.password, user.password);
+
+    if (!match) {
+      return res.render('users/login', { error: 'Invalid username or password.' });
+    }
+
+    req.session.userId = user._id;
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.render('users/login', { error: 'Login failed. Please try again.' });
   }
-
-  req.session.userId = user._id;
-  res.redirect('/watchlist');
 }
 
-// GET logout
+// Logout
 function logout(req, res) {
   req.session.destroy(() => {
     res.redirect('/');
@@ -45,8 +71,8 @@ function logout(req, res) {
 
 module.exports = {
   showSignup,
-  signup,
   showLogin,
+  signup,
   login,
-  logout,
+  logout
 };

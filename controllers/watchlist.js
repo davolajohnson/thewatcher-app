@@ -2,7 +2,7 @@ const WatchListItem = require('../models/watchlistItem');
 
 module.exports = {
   index,
-  new: newItem,
+  newItem,
   create,
   edit,
   update,
@@ -32,11 +32,12 @@ function newItem(req, res) {
 
 async function create(req, res) {
   try {
+    console.log('Form data:', req.body); // ✅ Debug line
     req.body.user = req.session.userId;
     await WatchListItem.create(req.body);
     res.redirect('/watchlist');
   } catch (err) {
-    console.error(err);
+    console.error('Error creating item:', err);
     res.redirect('/watchlist/new');
   }
 }

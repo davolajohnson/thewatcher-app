@@ -5,6 +5,24 @@
 <% if (!currentUser) { %>
   <a href="/users/signup" class="btn">Get Started</a>
 <% } else { %>
-  <a href="/watchlist" class="btn">Go to My WatchList</a>
-<% } %>
+  <a href="/watchlist/new" class="btn">+ Add New Item</a>
 
+  <% for (let status in grouped) { %>
+    <h3><%= status %></h3>
+    <ul>
+      <% if (grouped[status].length === 0) { %>
+        <li>No items in this category.</li>
+      <% } else { %>
+        <% grouped[status].forEach(item => { %>
+          <li>
+            <strong><%= item.title %></strong>
+            [<a href="/watchlist/<%= item._id %>/edit">Edit</a>]
+            <form action="/watchlist/<%= item._id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </li>
+        <% }) %>
+      <% } %>
+    </ul>
+  <% } %>
+<% } %>

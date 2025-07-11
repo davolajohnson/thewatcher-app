@@ -1,16 +1,16 @@
+// routes/users.js
+
 const express = require('express');
 const router = express.Router();
 const usersCtrl = require('../controllers/users');
 
-// Sign up
+// Show forms
 router.get('/signup', usersCtrl.showSignup);
-router.post('/signup', usersCtrl.signup);
-
-// Login
 router.get('/login', usersCtrl.showLogin);
-router.post('/login', usersCtrl.login);
+router.get('/logout', usersCtrl.logout); // ✅ Logout route added
 
-// Logout
-router.get('/logout', usersCtrl.logout);
+// Handle form submissions
+router.post('/signup', usersCtrl.signup);
+router.post('/login', usersCtrl.login);
 
 module.exports = router;
