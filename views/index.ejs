@@ -1,35 +1,13 @@
-<% layout('layouts/layout') %>
+<div class="home-container">
+  <p>🎥 Welcome to The Watcher App</p>
+  <p>Track all your movies and shows with ease 🍿.</p>
 
-<h1>My WatchList</h1>
-
-<!-- Add New Item Button -->
-<a href="/watchlist/new" class="btn">+ Add New Item</a>
-
-<hr />
-
-<!-- Display grouped watchlist items -->
-<% for (let status in grouped) { %>
-  <section>
-    <h2><%= status %></h2>
-    
-    <% if (grouped[status].length > 0) { %>
-      <ul>
-        <% grouped[status].forEach(item => { %>
-          <li>
-            <strong><%= item.title %></strong>
-            - 
-            <a href="/watchlist/<%= item._id %>/edit">Edit</a>
-            <form action="/watchlist/<%= item._id %>?_method=DELETE" method="POST" style="display:inline;">
-              <button type="submit" onclick="return confirm('Delete this item?')">Delete</button>
-            </form>
-          </li>
-        <% }) %>
-      </ul>
-    <% } else { %>
-      <p>No items in this category yet.</p>
-    <% } %>
-  </section>
-  <hr />
-<% } %>
+  <% if (currentUser) { %>
+    <a href="/watchlist" class="btn">View My WatchList</a>
+  <% } else { %>
+    <a href="/users/signup" class="btn">Sign Up</a>
+    <a href="/users/login" class="btn btn-secondary">Login</a>
+  <% } %>
+</div>
 
 

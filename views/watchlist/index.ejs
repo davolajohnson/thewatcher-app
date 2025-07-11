@@ -1,28 +1,23 @@
 <h2>🎬 Welcome to The Watcher App</h2>
-
 <p>Track all the movies and shows you're watching, want to watch, have already watched, or any recommendations.</p>
 
-<% if (!currentUser) { %>
-  <a href="/users/signup" class="btn">Get Started</a>
-<% } else { %>
-  <a href="/watchlist/new" class="btn">+ Add New Item</a>
+<a href="/watchlist/new" class="btn">+ Add New Item</a>
 
-  <% for (let status in grouped) { %>
-    <h3><%= status %></h3>
+<% for (const status in grouped) { %>
+  <h3><%= status %></h3>
+  <% if (grouped[status].length === 0) { %>
+    <p>No items in this category.</p>
+  <% } else { %>
     <ul>
-      <% if (grouped[status].length === 0) { %>
-        <li>No items in this category.</li>
-      <% } else { %>
-        <% grouped[status].forEach(item => { %>
-          <li>
-            <strong><%= item.title %></strong>
-            [<a href="/watchlist/<%= item._id %>/edit">Edit</a>]
-            <form action="/watchlist/<%= item._id %>?_method=DELETE" method="POST" style="display:inline;">
-              <button type="submit">Delete</button>
-            </form>
-          </li>
-        <% }) %>
-      <% } %>
+      <% grouped[status].forEach(item => { %>
+        <li>
+          <strong><%= item.title %></strong>
+          <a href="/watchlist/<%= item._id %>/edit" class="btn btn-secondary">Edit</a>
+          <form action="/watchlist/<%= item._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </li>
+      <% }) %>
     </ul>
   <% } %>
 <% } %>

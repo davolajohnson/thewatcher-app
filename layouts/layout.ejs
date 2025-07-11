@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Watcher App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🎬 The Watcher App</h1>
+    <nav>
+      <a href="/">Home</a>
+      <% if (currentUser) { %>
+        <a href="/watchlist">My WatchList</a>
+        <a href="/users/logout">Logout</a>
+      <% } else { %>
+        <a href="/users/signup">Sign Up</a>
+        <a href="/users/login">Login</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main>
+    <%- body %> <!-- This renders the page-specific content -->
+  </main>
+
+  <footer>
+    <p>© 2025 The Watcher App</p>
+  </footer>
+</body>
+</html>

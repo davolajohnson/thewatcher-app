@@ -1,24 +1,17 @@
 <h1>Add New WatchList Item</h1>
 
 <form action="/watchlist" method="POST">
-  <div>
-    <label for="title">Title:</label><br>
-    <input type="text" name="title" id="title" required>
-  </div>
+  <label for="title">Title:</label>
+  <input type="text" name="title" id="title" required>
 
-  <div>
-    <label for="status">Status:</label><br>
-    <select name="status" id="status" required>
-      <option value="Want to Watch">Want to Watch</option>
-      <option value="Watching">Watching</option>
-      <option value="Watched">Watched</option>
-      <option value="Recommendations">Recommendations</option>
-    </select>
-  </div>
+  <label for="status">Status:</label>
+  <select name="status" id="status" required>
+    <option value="Want to Watch">Want to Watch</option>
+    <option value="Watching">Watching</option>
+    <option value="Watched">Watched</option>
+    <option value="Recommendations">Recommendations</option>
+  </select>
 
-  <button type="submit">Add</button>
+  <button type="submit" class="btn">Add</button>
+  <a href="/watchlist" class="btn btn-secondary">Cancel</a>
 </form>
-
-<br>
-
-<a href="/watchlist">← Back to WatchList</a>

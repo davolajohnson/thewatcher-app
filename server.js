@@ -22,7 +22,7 @@ app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// View engine
+// View engine and layout
 app.set('view engine', 'ejs');
 app.set('layout', 'layouts/layout');
 app.set('views', path.join(__dirname, 'views'));
@@ -38,7 +38,7 @@ app.use(
   })
 );
 
-// ✅ Middleware to make currentUser available in all views
+// Make currentUser available in all views
 const User = require('./models/user');
 app.use(async (req, res, next) => {
   res.locals.currentUser = null;
@@ -62,7 +62,7 @@ app.use('/watchlist', watchlistRoutes);
 
 // Home route
 app.get('/', (req, res) => {
-  res.render('index'); // currentUser is now available in this view
+  res.render('index'); // Renders views/index.ejs
 });
 
 // Start server
