@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Watcher App</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <header>
+
+  <header class="main-header">
+    <img src="/img/logo.jpg" alt="The Watcher App Logo" class="logo" />
     <h1>🎬 The Watcher App</h1>
     <nav>
-      <a href="/">Home</a>
-      <% if (currentUser) { %>
-        <a href="/watchlist">My WatchList</a>
-        <a href="/users/logout">Logout</a>
-      <% } else { %>
-        <a href="/users/signup">Sign Up</a>
-        <a href="/users/login">Login</a>
-      <% } %>
+      <ul>
+        <% if (currentUser) { %>
+          <li><a href="/">Home</a></li>
+          <li><a href="/watchlist">My WatchList</a></li>
+          <li><a href="/users/logout">Logout</a></li>
+        <% } else { %>
+          <li><a href="/">Home</a></li>
+          <li><a href="/users/signup">Sign Up</a></li>
+          <li><a href="/users/login">Login</a></li>
+        <% } %>
+      </ul>
     </nav>
   </header>
 
   <main>
-    <%- body %> <!-- This renders the page-specific content -->
+    <%- body %>
   </main>
 
   <footer>
     <p>© 2025 The Watcher App</p>
   </footer>
+
 </body>
 </html>
+

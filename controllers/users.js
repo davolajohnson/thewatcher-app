@@ -33,8 +33,7 @@ async function signup(req, res) {
 
     req.session.userId = user._id;
     res.redirect('/');
-  } catch (err) {
-    console.error(err);
+  } catch {
     res.render('users/signup', { error: 'Signup failed. Please try again.' });
   }
 }
@@ -56,8 +55,7 @@ async function login(req, res) {
 
     req.session.userId = user._id;
     res.redirect('/');
-  } catch (err) {
-    console.error(err);
+  } catch {
     res.render('users/login', { error: 'Login failed. Please try again.' });
   }
 }

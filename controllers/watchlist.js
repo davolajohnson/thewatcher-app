@@ -32,18 +32,19 @@ function newItem(req, res) {
 
 async function create(req, res) {
   try {
-    console.log('Form data:', req.body); // ✅ Debug line
     req.body.user = req.session.userId;
     await WatchListItem.create(req.body);
     res.redirect('/watchlist');
   } catch (err) {
-    console.error('Error creating item:', err);
     res.redirect('/watchlist/new');
   }
 }
 
 async function edit(req, res) {
-  const item = await WatchListItem.findOne({ _id: req.params.id, user: req.session.userId });
+  const item = await WatchListItem.findOne({
+    _id: req.params.id,
+    user: req.session.userId
+  });
   res.render('watchlist/edit', { item });
 }
 
@@ -55,12 +56,14 @@ async function update(req, res) {
     );
     res.redirect('/watchlist');
   } catch (err) {
-    console.error(err);
     res.redirect('/watchlist');
   }
 }
 
 async function deleteItem(req, res) {
-  await WatchListItem.findOneAndDelete({ _id: req.params.id, user: req.session.userId });
+  await WatchListItem.findOneAndDelete({
+    _id: req.params.id,
+    user: req.session.userId
+  });
   res.redirect('/watchlist');
 }

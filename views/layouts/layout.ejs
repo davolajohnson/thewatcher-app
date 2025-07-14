@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>The Watcher App</title>
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header>
+    <img src="/img/logo.jpg" alt="The Watcher App Logo" class="logo">
     <h1>🎬 The Watcher App</h1>
     <nav>
-      <a href="/">Home</a>
-      <% if (!currentUser) { %>
-        <a href="/users/signup">Sign Up</a>
-        <a href="/users/login">Login</a>
-      <% } else { %>
+      <% if (currentUser) { %>
+        <a href="/">Home</a>
         <a href="/watchlist">My WatchList</a>
         <a href="/users/logout">Logout</a>
+      <% } else { %>
+        <a href="/">Home</a>
+        <a href="/users/signup">Sign Up</a>
+        <a href="/users/login">Login</a>
       <% } %>
     </nav>
   </header>
 
-  <main>
+  <main class="container">
     <%- body %>
   </main>
 
   <footer>
-    <p>&copy; <%= new Date().getFullYear() %> The Watcher App</p>
+    © <%= new Date().getFullYear() %> The Watcher App
   </footer>
 </body>
 </html>
