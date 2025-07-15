@@ -17,9 +17,9 @@ This app was built as a final project for a MEN Stack (MongoDB, Express, Node.js
 
 ## 💻 Deployed App
 
-🔗 [Live App]()  
-🔗 [GitHub Repo](https://github.com/davolajohnson/thewatcher-app.git)  
-📋 [Trello Board](https://trello.com/b/liptz8cU)
+🔗 [Live App] (https://thewatcher-app-0363df1d824a.herokuapp.com/)  
+🔗 [GitHub Repo] (https://github.com/davolajohnson/thewatcher-app.git)  
+📋 [Trello Board] (https://trello.com/b/liptz8cU)
 
 ---
 
