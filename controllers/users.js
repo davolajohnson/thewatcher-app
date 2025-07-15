@@ -22,7 +22,7 @@ async function signup(req, res) {
       });
     }
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
     const user = new User({
       username: req.body.username,
@@ -33,7 +33,8 @@ async function signup(req, res) {
 
     req.session.userId = user._id;
     res.redirect('/');
-  } catch {
+  } catch (err) {
+    console.error('Signup error:', err);
     res.render('users/signup', { error: 'Signup failed. Please try again.' });
   }
 }
@@ -54,8 +55,11 @@ async function login(req, res) {
     }
 
     req.session.userId = user._id;
-    res.redirect('/');
-  } catch {
+    req.session.save(() => {
+      res.redirect('/');
+    });
+  } catch (err) {
+    console.error('Login error:', err);
     res.render('users/login', { error: 'Login failed. Please try again.' });
   }
 }
